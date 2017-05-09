@@ -21,12 +21,14 @@ class BylineType extends WPObjectType {
 
 	/**
 	 * This holds the $fields definition for the BylineType
-	 * @var
+	 *
+	 * @var array
 	 */
 	private static $fields;
 
 	/**
 	 * This holds the name of the type
+	 *
 	 * @var string
 	 */
 	private static $type_name;
@@ -42,7 +44,7 @@ class BylineType extends WPObjectType {
 
 		$config = [
 			'name' => self::$type_name,
-			'description' =>  __( 'The Byline object type', 'bylines' ),
+			'description' => __( 'The Byline object type', 'bylines' ),
 			'fields' => self::fields(),
 			'interfaces' => [ self::node_interface() ],
 		];
@@ -128,10 +130,10 @@ class BylineType extends WPObjectType {
 				 * Add a postObjectConnection field to the byline for each post_type that supports bylines
 				 */
 				foreach ( $byline_post_types as $post_type ) {
-					if ( in_array( $post_type, $graphql_post_types, true ) ) {
+					if ( in_array( $post_type, $graphql_post_types, true ) ) :
 						$post_type_object = get_post_type_object( $post_type );
 						$fields[ $post_type_object->graphql_plural_name ] = PostObjectConnectionDefinition::connection( $post_type_object );
-					}
+					endif;
 				}
 
 				/**

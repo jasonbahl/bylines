@@ -61,7 +61,7 @@ class GraphQL {
 			if ( in_array( $post_type, $graphql_post_types, true ) ) {
 				add_filter( "graphql_{$post_type}_fields", array(
 					'Bylines\Integrations\GraphQL\GraphQL',
-					'post_object_fields'
+					'post_object_fields',
 				), 10, 1 );
 			}
 		}
