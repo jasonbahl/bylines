@@ -84,7 +84,7 @@ class GraphQL {
 				$bylines = get_bylines( $post );
 
 				return ! empty( $bylines ) ? $bylines : null;
-			}
+			},
 		];
 
 		return $fields;

@@ -59,7 +59,7 @@ class BylineType extends WPObjectType {
 	 */
 	public function fields() {
 
-		if ( null === self::$fields ) {
+		if ( null === self::$fields ) :
 
 			/**
 			 * Get the supported post_types for GraphQL and Bylines
@@ -143,7 +143,7 @@ class BylineType extends WPObjectType {
 
 			};
 
-		}
+		endif;
 
 		/**
 		 * Return the fields
