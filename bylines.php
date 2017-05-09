@@ -72,6 +72,7 @@ add_action( 'save_post', array( 'Bylines\Post_Editor', 'action_save_post_bylines
 // Integrations with other systems.
 add_filter( 'the_author', array( 'Bylines\Integrations\RSS', 'filter_the_author' ), 11 );
 add_action( 'rss2_item', array( 'Bylines\Integrations\RSS', 'action_rss2_item' ) );
+add_action( 'graphql_init', array( 'Bylines\Integrations\GraphQL\GraphQL', 'init' ) );
 
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';

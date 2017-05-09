@@ -19,7 +19,7 @@ class Byline {
 	 *
 	 * @var integer
 	 */
-	private $term_id;
+	public $term_id;
 
 	/**
 	 * Create a new byline object
