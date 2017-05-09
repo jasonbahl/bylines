@@ -31,11 +31,11 @@ class GraphQL {
 	public static function init() {
 		add_action( 'do_graphql_request', array(
 			'Bylines\Integrations\GraphQL\GraphQL',
-			'filter_post_object_fields'
+			'filter_post_object_fields',
 		) );
 		add_filter( 'graphql_default_query_args', array(
 			'Bylines\Integrations\GraphQL\GraphQL',
-			'filter_byline_post_object_query_args'
+			'filter_byline_post_object_query_args',
 		), 10, 5 );
 		add_filter( 'graphql_resolve_node', array(
 			'Bylines\Integrations\GraphQL\GraphQL',
@@ -43,7 +43,7 @@ class GraphQL {
 		), 10, 3 );
 		add_filter( 'graphql_resolve_node_type', array(
 			'Bylines\Integrations\GraphQL\GraphQL',
-			'filter_resolve_node_type'
+			'filter_resolve_node_type',
 		), 10, 2 );
 	}
 
@@ -59,10 +59,10 @@ class GraphQL {
 
 		foreach ( $byline_post_types as $post_type ) {
 			if ( in_array( $post_type, $graphql_post_types, true ) ) {
-				add_filter( "graphql_{$post_type}_fields", [
+				add_filter( "graphql_{$post_type}_fields", array(
 					'Bylines\Integrations\GraphQL\GraphQL',
 					'post_object_fields'
-				], 10, 1 );
+				), 10, 1 );
 			}
 		}
 
@@ -119,13 +119,13 @@ class GraphQL {
 		if ( true === is_object( $source ) ) {
 			switch ( true ) {
 				case $source instanceof Byline:
-					$query_args['tax_query'] = [
-						[
+					$query_args['tax_query'] = array(
+						array(
 							'taxonomy' => 'byline',
 							'terms'    => [ $source->term_id ],
 							'field'    => 'term_id',
-						],
-					];
+						),
+					);
 					break;
 				default:
 					break;
