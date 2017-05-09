@@ -71,7 +71,7 @@ class GraphQL {
 	/**
 	 * This adds the byline field to the existing $fields definition
 	 *
-	 * @param $fields
+	 * @param array $fields Array of postObjectType fields
 	 *
 	 * @return mixed
 	 */
@@ -96,12 +96,14 @@ class GraphQL {
 	 * @return BylineType
 	 */
 	public static function byline_type() {
-		return self::$byline_type ? : ( self::$byline_type = new BylineType() );
+		$byline_type = self::$byline_type ? : ( self::$byline_type = new BylineType() );
+
+		return $byline_type;
 	}
 
 	/**
-	 * This filters the post object query args so that if the source of the query is a byline, the query should
-	 * be performed with a tax_query for the source byline.
+	 * This filters the post object query args so that if the source of the query is a byline, the query should be
+	 * performed with a tax_query for the source byline.
 	 *
 	 * @param array       $query_args The query_args that will be returned
 	 * @param array       $args       Query "where" args
@@ -141,9 +143,9 @@ class GraphQL {
 	/**
 	 * This filters the node resolver to properly resolve with the Byline object if the $type is "byline"
 	 *
-	 * @param $node
-	 * @param $id
-	 * @param $type
+	 * @param mixed|object|array $node The node to return
+	 * @param mixed|string|int   $id   The ID of the node
+	 * @param string             $type The type of node to resolve
 	 *
 	 * @return Byline|false
 	 */
@@ -151,6 +153,7 @@ class GraphQL {
 		if ( ! empty( $type ) && 'byline' === $type ) {
 			return Byline::get_by_term_id( $id );
 		}
+
 		return $node;
 	}
 
@@ -158,15 +161,16 @@ class GraphQL {
 	 * This filters the node_type to ensure that the Byline "type" is returned if the object being returned is
 	 * a Byline object
 	 *
-	 * @param $type
-	 * @param $node
+	 * @param string             $type The type of node being resolved
+	 * @param mixed|object|array $node The node being resolved
 	 *
-	 * @return BylineType
+	 * @return mixed|object|BylineType
 	 */
 	public function filter_resolve_node_type( $type, $node ) {
 		if ( is_object( $node ) && $node instanceof Byline ) {
 			return self::byline_type();
 		}
+
 		return $type;
 	}
 
